@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday My Love</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #ffe6f0, #fddde6);
+      color: #333;
+      text-align: center;
+    }
+    header {
+      padding: 2rem;
+      background-color: #ffb6c1;
+      color: white;
+    }
+    h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      padding: 1rem;
+    }
+    .gallery img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 1rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .minigame {
+      margin-top: 3rem;
+      padding: 2rem;
+      background-color: #fff0f5;
+      border-radius: 1rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .heart-button {
+      background-color: #ff69b4;
+      border: none;
+      padding: 1rem;
+      font-size: 1.2rem;
+      color: white;
+      border-radius: 999px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    .heart-counter {
+      font-size: 2rem;
+      color: #e75480;
+    }
+    footer {
+      margin-top: 4rem;
+      padding: 2rem;
+      font-style: italic;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Happy Birthday Sayang! 🎉❤️</h1>
+    <p>Sebuah hadiah kecil dari aku untukmu yang selalu istimewa</p>
+  </header>
+
+  <section class="gallery">
+    <!-- Ganti src dengan foto kamu dan dia -->
+    <img src="images/foto1.jpg" alt="Kita 1">
+    <img src="images/foto2.jpg" alt="Kita 2">
+    <img src="images/foto3.jpg" alt="Kita 3">
+    <img src="images/foto4.jpg" alt="Kita 4">
+  </section>
+
+  <section class="minigame">
+    <h2>Main Yuk! Klik Hatinya Sebanyak Mungkin 💘</h2>
+    <p class="heart-counter" id="counter">0</p>
+    <button class="heart-button" onclick="addHeart()">❤️ Klik Aku!</button>
+  </section>
+
+  <footer>
+    Dengan cinta, dari aku untuk kamu 💌
+  </footer>
+
+  <script>
+    let counter = 0;
+    function addHeart() {
+      counter++;
+      document.getElementById('counter').textContent = counter;
+    }
+  </script>
+</body>
+</html>
