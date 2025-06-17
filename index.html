@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Birthday My Love</title>
+  <title>Selamat Ulang Tahun, Sayang!</title>
   <style>
     body {
       margin: 0;
@@ -14,19 +14,22 @@
     }
     header {
       padding: 2rem;
-      background-color: #ffb6c1;
+      background-color: #ff99bb;
       color: white;
     }
     h1 {
       margin: 0;
       font-size: 2.5rem;
     }
+    p {
+      font-size: 1.2rem;
+    }
     .gallery {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 10px;
-      padding: 1rem;
+      gap: 15px;
+      padding: 1.5rem;
     }
     .gallery img {
       width: 200px;
@@ -47,16 +50,21 @@
     .heart-button {
       background-color: #ff69b4;
       border: none;
-      padding: 1rem;
+      padding: 1rem 2rem;
       font-size: 1.2rem;
       color: white;
       border-radius: 999px;
       cursor: pointer;
       margin-top: 1rem;
+      transition: transform 0.1s ease;
+    }
+    .heart-button:hover {
+      transform: scale(1.1);
     }
     .heart-counter {
-      font-size: 2rem;
+      font-size: 2.5rem;
       color: #e75480;
+      margin: 1rem 0;
     }
     footer {
       margin-top: 4rem;
@@ -68,26 +76,26 @@
 </head>
 <body>
   <header>
-    <h1>Happy Birthday Sayang! 🎉❤️</h1>
-    <p>Sebuah hadiah kecil dari aku untukmu yang selalu istimewa</p>
+    <h1>Selamat Ulang Tahun, Sayang! 🎉❤️</h1>
+    <p>Ada hadiah kecil buatmu dari orang yang paling mencintaimu 🌸</p>
   </header>
 
   <section class="gallery">
-    <!-- Ganti src dengan foto kamu dan dia -->
-    <img src="images/foto1.jpg" alt="Kita 1">
-    <img src="images/foto2.jpg" alt="Kita 2">
-    <img src="images/foto3.jpg" alt="Kita 3">
-    <img src="images/foto4.jpg" alt="Kita 4">
+    <!-- Ganti nama file dengan foto kalian -->
+    <img src="images/foto1.jpg" alt="Foto 1">
+    <img src="images/foto2.jpg" alt="Foto 2">
+    <img src="images/foto3.jpg" alt="Foto 3">
+    <img src="images/foto4.jpg" alt="Foto 4">
   </section>
 
   <section class="minigame">
-    <h2>Main Yuk! Klik Hatinya Sebanyak Mungkin 💘</h2>
+    <h2>Mini Game: Klik Hatimu! 💘</h2>
     <p class="heart-counter" id="counter">0</p>
     <button class="heart-button" onclick="addHeart()">❤️ Klik Aku!</button>
   </section>
 
   <footer>
-    Dengan cinta, dari aku untuk kamu 💌
+    Terima kasih sudah hadir di hidupku. Aku sayang kamu 💌
   </footer>
 
   <script>
