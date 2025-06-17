@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Selamat Ulang Tahun, Sayang!</title>
   <style>
     body {
@@ -11,19 +11,31 @@
       background: linear-gradient(to bottom right, #ffe6f0, #fddde6);
       color: #333;
       text-align: center;
+      opacity: 0;
+      animation: fadeIn 2s ease forwards;
     }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
     header {
       padding: 2rem;
       background-color: #ff99bb;
       color: white;
     }
+
     h1 {
       margin: 0;
       font-size: 2.5rem;
     }
+
     p {
       font-size: 1.2rem;
     }
+
     .gallery {
       display: flex;
       flex-wrap: wrap;
@@ -31,6 +43,7 @@
       gap: 15px;
       padding: 1.5rem;
     }
+
     .gallery img {
       width: 200px;
       height: 200px;
@@ -38,6 +51,7 @@
       border-radius: 1rem;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
+
     .minigame {
       margin-top: 3rem;
       padding: 2rem;
@@ -47,6 +61,7 @@
       margin-left: auto;
       margin-right: auto;
     }
+
     .heart-button {
       background-color: #ff69b4;
       border: none;
@@ -58,39 +73,92 @@
       margin-top: 1rem;
       transition: transform 0.1s ease;
     }
+
     .heart-button:hover {
       transform: scale(1.1);
     }
+
     .heart-counter {
       font-size: 2.5rem;
       color: #e75480;
       margin: 1rem 0;
     }
+
     footer {
       margin-top: 4rem;
       padding: 2rem;
       font-style: italic;
       color: #777;
     }
+
+    /* SURAT CINTA POP-UP */
+    .popup {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 2rem;
+      max-width: 400px;
+      border-radius: 1rem;
+      text-align: left;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      animation: fadeInPopup 1s ease forwards;
+    }
+
+    @keyframes fadeInPopup {
+      from { opacity: 0; transform: scale(0.8); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .popup-content button {
+      background: #ff69b4;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      margin-top: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
+
+  <!-- AUDIO -->
+  <audio autoplay loop>
+    <source src="audio/lagu-romantis.mp3" type="audio/mpeg">
+    Browsermu tidak mendukung audio.
+  </audio>
+
+  <!-- SURAT CINTA POPUP -->
+  <div class="popup" id="loveLetter">
+    <div class="popup-content">
+      <h2>Untuk kamu, yang paling aku sayangi 💌</h2>
+      <p>
+        Hari ini adalah hari spesialmu, dan aku bersyukur bisa merayakannya bersamamu.  
+        Terima kasih sudah jadi cahaya di hariku.  
+        Semoga kamu selalu bahagia, sehat, dan tahu bahwa kamu sangat dicintai.
+      </p>
+      <button onclick="closePopup()">Tutup</button>
+    </div>
+  </div>
+
   <header>
-    <h1>Selamat Ulang Tahun, Sayang! 🎉❤️</h1>
-    <p>Ada hadiah kecil buatmu dari orang yang paling mencintaimu 🌸</p>
+    <h1>Selamat Ulang Tahun, Sayangku! 🎂💕</h1>
+    <p>Terima kasih sudah menjadi bagian terindah dalam hidupku. Ini hadiah kecil dari aku, semoga kamu suka 🫶</p>
   </header>
 
-  <audio autoplay loop>
-  <source src="audio/music.mp3" type="audio/mpeg">
-  Browsermu tidak mendukung audio.
-</audio>
-
   <section class="gallery">
-    <!-- Ganti nama file dengan foto kalian -->
-    <img src="images/b.jpg" alt="Foto 1">
-    <img src="images/d.jpg" alt="Foto 2">
-    <img src="images/e.jpg" alt="Foto 3">
-    <img src="images/i.jpg" alt="Foto 4">
+    <img src="images/foto1.jpg" alt="Foto 1">
+    <img src="images/foto2.jpg" alt="Foto 2">
+    <img src="images/foto3.jpg" alt="Foto 3">
+    <img src="images/foto4.jpg" alt="Foto 4">
   </section>
 
   <section class="minigame">
@@ -99,15 +167,42 @@
     <button class="heart-button" onclick="addHeart()">❤️ Klik Aku!</button>
   </section>
 
+  <section class="minigame">
+    <h2>Tebak-Tebakan Cinta 😍</h2>
+    <p>Aku pertama kali jatuh cinta sama kamu kapan?</p>
+    <input type="text" id="answer" placeholder="Jawabanmu..." />
+    <button class="heart-button" onclick="checkAnswer()">Cek Jawaban</button>
+    <p id="tebak-result" style="margin-top: 10px;"></p>
+  </section>
+
   <footer>
-    Terima kasih sudah hadir di hidupku. Aku sayang kamu 💌
+    Terima kasih sudah selalu sabar, pengertian, dan penuh cinta. Aku ingin selalu merayakan ulang tahunmu — setiap tahun, selamanya. ❤️
   </footer>
 
   <script>
+    // Klik Hati
     let counter = 0;
     function addHeart() {
       counter++;
       document.getElementById('counter').textContent = counter;
+    }
+
+    // Tebak-Tebakan
+    function checkAnswer() {
+      const userInput = document.getElementById('answer').value.toLowerCase().trim();
+      const result = document.getElementById('tebak-result');
+      if (userInput.includes("nonton")) {
+        result.textContent = "🎉 Benar banget! Kamu ingat 💖";
+        result.style.color = "green";
+      } else {
+        result.textContent = "Hihi... salah sayang 😜 coba lagi yaa~";
+        result.style.color = "red";
+      }
+    }
+
+    // Surat Cinta Popup
+    function closePopup() {
+      document.getElementById('loveLetter').style.display = 'none';
     }
   </script>
 </body>
