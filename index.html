@@ -142,7 +142,7 @@
       <h2>Untuk kamu, yang paling aku sayangi 💌</h2>
       <p>
         Hari ini adalah hari spesialmu, dan aku bersyukur bisa merayakannya bersamamu.  
-        Terima kasih sudah jadi cahaya di hariku.  
+        Terima kasih sudah jadi cahaya di hari-hariku.  
         Semoga kamu selalu bahagia, sehat, dan tahu bahwa kamu sangat dicintai.
       </p>
       <button onclick="closePopup()">Tutup</button>
@@ -150,7 +150,7 @@
   </div>
 
   <header>
-    <h1>Selamat Ulang Tahun, Sayangku! 🎂💕</h1>
+    <h1>Selamat Ulang Tahun, Gracetiar! 🎂💕</h1>
     <p>Terima kasih sudah menjadi bagian terindah dalam hidupku. Ini hadiah kecil dari aku, semoga kamu suka 🫶</p>
   </header>
 
@@ -162,15 +162,15 @@
   </section>
 
   <section class="minigame">
-    <h2>Mini Game: Klik Hatimu! 💘</h2>
+    <h2>Seberapa sayang kamu ke aku 💘</h2>
     <p class="heart-counter" id="counter">0</p>
     <button class="heart-button" onclick="addHeart()">❤️ Klik Aku!</button>
   </section>
 
   <section class="minigame">
     <h2>Tebak-Tebakan Cinta 😍</h2>
-    <p>Aku pertama kali jatuh cinta sama kamu kapan?</p>
-    <input type="text" id="answer" placeholder="Jawabanmu..." />
+    <p>Di mana pertama kali kita ketemu?</p>
+    <input type="text" id="answer" placeholder="Format Menjawab: 01 Januari 2026" />
     <button class="heart-button" onclick="checkAnswer()">Cek Jawaban</button>
     <p id="tebak-result" style="margin-top: 10px;"></p>
   </section>
@@ -191,11 +191,11 @@
     function checkAnswer() {
       const userInput = document.getElementById('answer').value.toLowerCase().trim();
       const result = document.getElementById('tebak-result');
-      if (userInput.includes("nonton")) {
+      if (userInput.includes("31 September 2023")) {
         result.textContent = "🎉 Benar banget! Kamu ingat 💖";
         result.style.color = "green";
       } else {
-        result.textContent = "Hihi... salah sayang 😜 coba lagi yaa~";
+        result.textContent = "Hihi... salah sayang 😜 coba lagi yaa~ (clue: Kita makan di Sukarasa bareng Naposo)";
         result.style.color = "red";
       }
     }
