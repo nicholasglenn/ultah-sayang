@@ -5,93 +5,103 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Selamat Ulang Tahun, Sayang!</title>
   <style>
-    body {
+    html, body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #ffe6f0, #fddde6);
       color: #333;
       text-align: center;
+      overflow-x: hidden;
+    }
+    body {
+      background: linear-gradient(-45deg, #ffe6f0, #fddde6, #ffe0f0, #fce8ef);
+      background-size: 400% 400%;
+      animation: bgMove 15s ease infinite;
+    }
+    @keyframes bgMove {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    section {
+      padding: 2rem;
+      display: none;
       opacity: 0;
-      animation: fadeIn 2s ease forwards;
+      transition: opacity 1s ease;
     }
-
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
+    section.active {
+      display: block;
+      opacity: 1;
     }
-
     header {
       padding: 2rem;
       background-color: #ff99bb;
       color: white;
+      animation: slideDown 1s ease;
     }
-
+    @keyframes slideDown {
+      from {transform: translateY(-100%); opacity: 0;}
+      to {transform: translateY(0); opacity: 1;}
+    }
     h1 {
       margin: 0;
       font-size: 2.5rem;
     }
-
-    p {
-      font-size: 1.2rem;
-    }
-
     .gallery {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 15px;
       padding: 1.5rem;
+      animation: fadeInUp 1s ease;
     }
-
+    @keyframes fadeInUp {
+      from {opacity: 0; transform: translateY(30px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
     .gallery img {
       width: 200px;
       height: 200px;
       object-fit: cover;
       border-radius: 1rem;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
     }
-
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
     .minigame {
-      margin-top: 3rem;
+      margin: 2rem auto;
       padding: 2rem;
       background-color: #fff0f5;
       border-radius: 1rem;
       max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
+      animation: fadeInUp 1s ease;
     }
-
     .heart-button {
       background-color: #ff69b4;
       border: none;
       padding: 1rem 2rem;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: white;
       border-radius: 999px;
       cursor: pointer;
       margin-top: 1rem;
-      transition: transform 0.1s ease;
+      transition: transform 0.2s ease;
     }
-
     .heart-button:hover {
       transform: scale(1.1);
     }
-
     .heart-counter {
       font-size: 2.5rem;
       color: #e75480;
       margin: 1rem 0;
     }
-
     footer {
       margin-top: 4rem;
       padding: 2rem;
       font-style: italic;
       color: #777;
     }
-
-    /* SURAT CINTA POP-UP */
     .popup {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -101,7 +111,6 @@
       justify-content: center;
       z-index: 9999;
     }
-
     .popup-content {
       background: white;
       padding: 2rem;
@@ -109,14 +118,12 @@
       border-radius: 1rem;
       text-align: left;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      animation: fadeInPopup 1s ease forwards;
+      animation: zoomIn 0.8s ease;
     }
-
-    @keyframes fadeInPopup {
-      from { opacity: 0; transform: scale(0.8); }
-      to   { opacity: 1; transform: scale(1); }
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
     }
-
     .popup-content button {
       background: #ff69b4;
       color: white;
@@ -126,84 +133,157 @@
       border-radius: 8px;
       cursor: pointer;
     }
+    .penutup-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      animation: fadeInUp 1s ease;
+    }
+    .penutup-text {
+      flex: 1;
+      max-width: 400px;
+      text-align: left;
+    }
+    .penutup-img {
+      flex: 1;
+      max-width: 400px;
+    }
+    .penutup-img img {
+      max-width: 100%;
+      border-radius: 1rem;
+    }
   </style>
 </head>
 <body>
 
-  <!-- AUDIO -->
-  <audio autoplay loop>
-    <source src="audio/music.mp3" type="audio/mpeg">
-    Browsermu tidak mendukung audio.
-  </audio>
+<audio id="bgmusic" autoplay loop muted>
+  <source src="audio/music.mp3" type="audio/mpeg">
+  Browsermu tidak mendukung audio.
+</audio>
 
-  <!-- SURAT CINTA POPUP -->
-  <div class="popup" id="loveLetter">
-    <div class="popup-content">
-      <h2>Untuk kamu, yang paling aku sayangi 💌</h2>
-      <p>
-        Hari ini adalah hari spesialmu, dan aku bersyukur bisa merayakannya bersamamu.  
-        Terima kasih sudah jadi cahaya di hari-hariku.  
-        Semoga kamu selalu bahagia, sehat, dan tahu bahwa kamu sangat dicintai.
-      </p>
-      <button onclick="closePopup()">Tutup</button>
-    </div>
+<div class="popup" id="loveLetter">
+  <div class="popup-content">
+    <h2>Untuk kamu, yang paling aku sayangi 💌</h2>
+    <p>
+      Hari ini adalah hari spesialmu, dan aku bersyukur bisa merayakannya bersamamu.<br>
+      Terima kasih sudah jadi cahaya di hari-hariku.<br>
+      Semoga kamu selalu bahagia, sehat, dan tahu bahwa kamu sangat dicintai.
+    </p>
+    <button onclick="closePopup()">Tutup</button>
   </div>
+</div>
 
+<section id="home-section" class="active">
   <header>
     <h1>Selamat Ulang Tahun, Gracetiar! 🎂💕</h1>
     <p>Terima kasih sudah menjadi bagian terindah dalam hidupku. Ini hadiah kecil dari aku, semoga kamu suka 🫶</p>
   </header>
 
-  <section class="gallery">
+  <div class="gallery">
     <img src="images/b.jpg" alt="Foto 1">
     <img src="images/d.jpg" alt="Foto 2">
     <img src="images/e.jpg" alt="Foto 3">
     <img src="images/i.jpg" alt="Foto 4">
-  </section>
+  </div>
 
-  <section class="minigame">
+  <button class="heart-button" onclick="showSection('minigame-section')">💘 Lanjut ke Minigame</button>
+</section>
+
+<section id="minigame-section">
+  <div class="minigame">
     <h2>Seberapa sayang kamu ke aku 💘</h2>
     <p class="heart-counter" id="counter">0</p>
     <button class="heart-button" onclick="addHeart()">❤️ Klik Aku!</button>
-  </section>
+    <button class="heart-button" onclick="resetHeart()">🔄 Reset</button>
+  </div>
 
-  <section class="minigame">
+  <div class="minigame">
     <h2>Tebak-Tebakan Cinta 😍</h2>
     <p>Di mana pertama kali kita ketemu?</p>
-    <input type="text" id="answer" placeholder="Format Menjawab: 01 Januari 2026" />
+    <input type="text" id="answer" placeholder="Format: 30 September 2023" />
     <button class="heart-button" onclick="checkAnswer()">Cek Jawaban</button>
     <p id="tebak-result" style="margin-top: 10px;"></p>
-  </section>
+  </div>
 
-  <footer>
-    Terima kasih sudah selalu sabar, pengertian, dan penuh cinta. Aku ingin selalu merayakan ulang tahunmu — setiap tahun, selamanya. ❤️
-  </footer>
+  <button class="heart-button" onclick="showSection('penutup-section')">🎁 Lanjut ke Penutup</button>
+</section>
 
-  <script>
-    // Klik Hati
-    let counter = 0;
-    function addHeart() {
-      counter++;
-      document.getElementById('counter').textContent = counter;
-    }
+<section id="penutup-section">
+  <div class="penutup-container">
+    <div class="penutup-text">
+      <h2>Pesan Terakhir 💞</h2>
+      <p>
+        Aku harap kamu selalu bahagia, tetap semangat mengejar impianmu...<br>
+        Aku bangga dan sayang banget sama kamu 💗<br>
+        Jangan pernah lupa: kamu nggak sendirian, aku selalu ada.
+      </p>
+      <button class="heart-button" onclick="showSection('home-section')">🔁 Kembali ke Awal</button>
+    </div>
+    <div class="penutup-img">
+      <img src="images/i.jpg" alt="Foto Akhir" />
+    </div>
+  </div>
+</section>
 
-    // Tebak-Tebakan
-    function checkAnswer() {
-      const userInput = document.getElementById('answer').value.toLowerCase().trim();
-      const result = document.getElementById('tebak-result');
-      if (userInput.includes("30 September 2023")) {
-        result.textContent = "🎉 Benar banget! Kamu ingat 💖";
-        result.style.color = "green";
-      } else {
-        result.textContent = "Hihi... salah sayang 😜 coba lagi yaa~ (clue: Kita makan di Sukarasa bareng Naposo)";
-        result.style.color = "red";
-      }
-    }
+<footer>
+  Terima kasih sudah selalu sabar, pengertian, dan penuh cinta. Aku ingin selalu merayakan ulang tahunmu — setiap tahun, selamanya. ❤️
+</footer>
 
-    // Surat Cinta Popup
-    function closePopup() {
+<script>
+  // Musik otomatis dimulai setelah popup ditutup
+  function closePopup() {
+    document.getElementById('loveLetter').style.display = 'none';
+    const music = document.getElementById('bgmusic');
+    music.muted = false;
+    music.play();
+    localStorage.setItem('popupShown', 'true');
+  }
+
+  // Tampilkan popup hanya sekali
+  window.addEventListener('DOMContentLoaded', () => {
+    const shown = localStorage.getItem('popupShown');
+    if (shown) {
       document.getElementById('loveLetter').style.display = 'none';
+      document.getElementById('bgmusic').muted = false;
+      document.getElementById('bgmusic').play();
     }
-  </script>
+  });
+
+  function showSection(id) {
+    const sections = document.querySelectorAll("section");
+    sections.forEach(s => s.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  let counter = 0;
+  function addHeart() {
+    counter++;
+    document.getElementById('counter').textContent = counter;
+  }
+
+  function resetHeart() {
+    counter = 0;
+    document.getElementById('counter').textContent = counter;
+  }
+
+  function checkAnswer() {
+    const input = document.getElementById('answer').value.trim();
+    const result = document.getElementById('tebak-result');
+    if (!input) {
+      result.textContent = "Isi dulu jawabannya ya sayang 💌";
+      result.style.color = "orange";
+    } else if (input === "30 September 2023") {
+      result.textContent = "🎉 Benar banget! Kamu ingat 💖";
+      result.style.color = "green";
+    } else {
+      result.textContent = "Hihi... salah sayang 😜 coba lagi yaa~";
+      result.style.color = "red";
+    }
+  }
+</script>
+
 </body>
 </html>
